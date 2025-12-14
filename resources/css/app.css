@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    @apply bg-main_bg;
+}
+
+h2 {
+    @apply font-[Forum] font-normal text-5xl;
+}
