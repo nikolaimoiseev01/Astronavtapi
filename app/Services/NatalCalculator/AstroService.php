@@ -37,7 +37,7 @@ class AstroService
         $output = [];
         putenv("PATH=".$this->lib_path);
         exec("$this->swetest_application -edir$this->lib_path -b$date -p$celestial_body -eswe -fl, -head", $output, $retval);
-        return $output[0];
+        return (float) trim($output[0]);
     }
     public function get_ephemeris_date_time($date, $time, $celestial_body)
     {
@@ -1103,7 +1103,7 @@ class AstroService
         $this->time = $time;
         $this->time_zone = $time_zone;
         $this->lib_path = config('natal.lib_path'); //путь к файлам эфемерид
-        // $this->lib_path = '/var/www/www-root/data/www/test/public/php_swiss_ephemeris_master/sweph/'; //путь к файлам эфемерид
+
         $this->array_celectial_name =
             [
                 'Sun'			=> '0',
