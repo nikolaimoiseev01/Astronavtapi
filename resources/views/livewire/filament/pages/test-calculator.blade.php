@@ -12,7 +12,7 @@
                 tooltip="Занимает от 30 до 300 секунд"
                 @click="start()"
             >
-                Calculate
+                Рассчитать
             </x-filament::button>
 
             <x-filament::loading-indicator wire:loading class="h-5 w-5"/>
@@ -69,7 +69,7 @@
                     const ms = totalMs % 1000
                     const sec = Math.floor(totalMs / 1000)
 
-                    return `${sec}.${ms.toString().padStart(2, '0')} сек`
+                    return `${sec}.${ms.toString().padStart(2, '0')}`
                 },
             }
         }

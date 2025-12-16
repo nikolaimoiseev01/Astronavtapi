@@ -6,6 +6,7 @@ use App\Models\AccessKey;
 use App\Models\AccessKeyStatistic;
 use App\Models\CalculatorMeta\PbCity;
 use App\Services\NatalCalculator\NatalService;
+use BackedEnum;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -17,6 +18,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 
 class TestCalculator extends Page implements HasSchemas
 {
@@ -25,6 +27,10 @@ class TestCalculator extends Page implements HasSchemas
     public ?array $data = [];
 
     protected string $view = 'volt-livewire::filament.pages.test-calculator';
+
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedCalculator;
+
+    protected static ?string $navigationLabel = 'Тестовый рассчет';
 
     protected static ?int $navigationSort = 5;
 
@@ -39,9 +45,11 @@ class TestCalculator extends Page implements HasSchemas
             ->components([
                 Section::make()->schema([
                     DatePicker::make('date')
+                        ->label('Дата рождения')
                         ->format('Y-m-d')
                         ->required(),
                     TimePicker::make('time')
+                        ->label('Время рождения')
                         ->seconds(false)
                         ->format('H:i')
                         ->required(),

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Partners\Pages;
 
 use App\Filament\Resources\Partners\PartnerResource;
 use App\Models\AccessKey;
+use App\Notifications\PartnerCreatedNotification;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreatePartner extends CreateRecord
@@ -13,11 +14,18 @@ class CreatePartner extends CreateRecord
 
     protected function afterCreate(): void
     {
-        AccessKey::create([
+        $accessKey = AccessKey::create([
             'name' => "Ключ для {$this->record->name}",
             'key' => hash('sha256', $this->record->name . config('app.key')),
             'partner_id' => $this->record->id,
             'expires_at' => now()->addMonth()
         ]);
+
+        if (!empty($this->record->email)) {
+            $this->record->notify(
+                new PartnerCreatedNotification($accessKey)
+            );
+            dd('sent');
+        }
     }
 }

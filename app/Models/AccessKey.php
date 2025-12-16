@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class AccessKey extends Model
 {
+    protected $casts = [
+        'expires_at' => 'datetime'
+    ];
     public function partner(): belongsTo
     {
         return $this->belongsTo(Partner::class);
