@@ -15,6 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -22,7 +23,7 @@ return [
     |
     | This value determines the "environment" your application is currently
     | running in. This may determine how you prefer to configure various
-    | services the application utilizes. Set this in your ".env" file.
+    | Services the application utilizes. Set this in your ".env" file.
     |
     */
 
@@ -89,7 +90,7 @@ return [
     | Encryption Key
     |--------------------------------------------------------------------------
     |
-    | This key is utilized by Laravel's encryption services and should be set
+    | This key is utilized by Laravel's encryption Services and should be set
     | to a random, 32 character string to ensure that all encrypted values
     | are secure. You should do this prior to deploying the application.
     |
@@ -121,6 +122,12 @@ return [
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
+    ],
+
+
+    'admin' => [
+        'email' => ENV('ADMIN_LOGIN', 'admin@mail.ru'),
+        'password' => ENV('ADMIN_PASSWORD', '12345678')
     ],
 
 ];

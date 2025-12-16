@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('pb_rajon_cities', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 128);
+            $table->unsignedInteger('city')->default(0)->comment('Город');
+            $table->string('english', 64)->default('');
+            $table->unsignedInteger('parent')->default(0);
+            $table->text('polygon')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('pb_rajon_cities');
     }
 };

@@ -8,7 +8,7 @@ use Livewire\Volt\Volt;
 class VoltServiceProvider extends ServiceProvider
 {
     /**
-     * Register services.
+     * Register Services.
      */
     public function register(): void
     {
@@ -16,7 +16,7 @@ class VoltServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap services.
+     * Bootstrap Services.
      */
     public function boot(): void
     {
