@@ -171,7 +171,7 @@ class IncarnationService
                 }
                 else
                 {
-                    return 'SPESIALIST';
+                    return 'SPECIALIST';
                 }
             }
         }
@@ -186,7 +186,7 @@ class IncarnationService
             }
             else
             {
-                return 'SPESIALIST';
+                return 'SPECIALIST';
             }
         }
         else

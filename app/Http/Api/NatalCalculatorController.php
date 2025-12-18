@@ -8,6 +8,7 @@ use App\Models\AccessKeyStatistic;
 use App\Models\CalculatorMeta\PbCity;
 use App\Services\NatalCalculator\NatalService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NatalCalculatorController extends Controller
 {
@@ -59,19 +60,22 @@ class NatalCalculatorController extends Controller
         $data = $this->natalService->calculate(
             $request->date,
             $request->time,
-            $city->tz
+            $city
         );
 
         $stat->update([
             'status' => 'success'
         ]);
 
-        $data['additional_properties']['birth_location'] =
-            $city->name . ', ' . $city->countryRelation?->name;
+
 
         return response()->json([
             'success' => true,
             'data' => $data,
         ]);
     }
+
+
+
+
 }

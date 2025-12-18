@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Partner extends Model
 {
     use Notifiable;
-    public function accessKeys(): hasOne
+    public function accessKey(): hasOne
     {
         return $this->hasOne(AccessKey::class);
     }

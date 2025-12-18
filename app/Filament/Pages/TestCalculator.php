@@ -59,7 +59,7 @@ class TestCalculator extends Page implements HasSchemas
                         ->searchable()
                         ->required()
                         ->getSearchResultsUsing(function (string $search) {
-                            return PbCity::query()
+                            $result= PbCity::query()
                                 ->where(function ($q) use ($search) {
                                     $q->where('name', 'like', "%{$search}%")
                                         ->orWhere('english', 'like', "%{$search}%");
@@ -70,6 +70,7 @@ class TestCalculator extends Page implements HasSchemas
                                     $city->id => $city->label,
                                 ])
                                 ->toArray();
+                            return $result;
                         })
                         ->getOptionLabelUsing(fn ($value): ?string => PbCity::find($value)?->label)
                         ->placeholder('Начните вводить город')
@@ -93,7 +94,7 @@ class TestCalculator extends Page implements HasSchemas
         $result = app(NatalService::class)->calculate(
             $data['date'],
             $data['time'],
-            PbCity::findOrFail($data['city_id'])->tz
+            PbCity::findOrFail($data['city_id'])
         );
 
         $stat->update([

@@ -25,7 +25,6 @@ class CreatePartner extends CreateRecord
             $this->record->notify(
                 new PartnerCreatedNotification($accessKey)
             );
-            dd('sent');
         }
     }
 }

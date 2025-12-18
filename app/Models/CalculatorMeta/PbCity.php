@@ -8,11 +8,11 @@ class PbCity extends Model
 {
     public function getLabelAttribute(): string
     {
+        $country = PbCountry::query()->where('id', $this->country)->first()['name'];
         return trim(sprintf(
-            '%s (%s) — %s',
+            '%s, %s',
             $this->name,
-            $this->english,
-            strtoupper($this->country)
+            $country
         ));
     }
 }
