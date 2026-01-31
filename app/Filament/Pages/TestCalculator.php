@@ -534,11 +534,11 @@ class TestCalculator extends Page implements HasSchemas
         ];
 
 
-//        $this->result = app(NatalService::class)->calculate(
-//            $data['date'],
-//            $data['time'],
-//            PbCity::findOrFail($data['city_id'])
-//        );
+        $this->result = app(NatalService::class)->calculate(
+            $data['date'],
+            $data['time'],
+            PbCity::findOrFail($data['city_id'])
+        );
 
         $hexagramsByValue = Hexagram::query()
             ->get(['hexagram', 'yin_yang_balance', 'role', 'mind', 'decision'])
