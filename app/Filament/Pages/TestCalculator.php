@@ -50,6 +50,10 @@ class TestCalculator extends Page implements HasSchemas
                 Section::make()->schema([
                     DatePicker::make('date')
                         ->label('Дата рождения')
+                        ->displayFormat('m.d.Y')
+                        ->placeholder('мм.дд.гггг')
+                        ->locale('us')
+                        ->native(false)
                         ->format('Y-m-d'),
                     TimePicker::make('time')
                         ->label('Время рождения')
@@ -529,11 +533,12 @@ class TestCalculator extends Page implements HasSchemas
             ],
         ];
 
-        $this->result = app(NatalService::class)->calculate(
-            $data['date'],
-            $data['time'],
-            PbCity::findOrFail($data['city_id'])
-        );
+
+//        $this->result = app(NatalService::class)->calculate(
+//            $data['date'],
+//            $data['time'],
+//            PbCity::findOrFail($data['city_id'])
+//        );
 
         $hexagramsByValue = Hexagram::query()
             ->get(['hexagram', 'yin_yang_balance', 'role', 'mind', 'decision'])
@@ -561,18 +566,19 @@ class TestCalculator extends Page implements HasSchemas
             $value['values'] = $initialValues[$key];
         }
     }
-    private function buildGroupedCounts($someAditionals): array
+    private function buildGroupedCounts(array $someAditionals): array
     {
-        $rows = Hexagram::query()
-            ->get($someAditionals);
-
         $result = [];
 
         foreach ($someAditionals as $field) {
-            $result[$field] = $rows
-                ->pluck($field)
-                ->filter()               // на случай null
-                ->countBy()
+            $result[$field] = Hexagram::query()
+                ->selectRaw("
+                {$field} as value,
+                COUNT(DISTINCT FLOOR(hexagram)) as count
+            ")
+                ->whereNotNull($field)
+                ->groupBy($field)
+                ->pluck('count', 'value')
                 ->toArray();
         }
 
@@ -587,7 +593,7 @@ class TestCalculator extends Page implements HasSchemas
             $totalFields = $hexagramsGateGroupsFromDB[$field];
             foreach ($this->result["some_additional_gates_{$field}"] as $gate => &$group) {
                 $count = count($group['values'] ?? []);
-                $group['share'] = $count / $totalFields[$gate];
+                $group['share (%)'] = round(($count / $totalFields[$gate]) * 100, 2);
                 $group["total of {$gate} in DB"] = $totalFields[$gate];
             }
 
