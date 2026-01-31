@@ -135,8 +135,6 @@ class NatalService
             array_map('count', $additionalGates)
         );
 
-        $data['some_additional_gates_data'] = $additionalGates;
-
         /**
          * ===== TIME =====
          */
@@ -167,6 +165,8 @@ class NatalService
         $data['additional_properties']['goal-shadow'] = $this->getGoalShadow($data);
         $data['additional_properties']['zodiac_sign'] = $this->getZodiacSign($data);
         $data['additional_properties']['inner_authority'] = $this->getInnerAuthority($data);
+
+        $data['some_additional_gates_circuit'] = $additionalGates;
 
         return $data;
     }

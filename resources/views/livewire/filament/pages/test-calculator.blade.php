@@ -24,9 +24,25 @@
                 x-text="formatted"
                 wire:loading
             ></div>
-
         </div>
     </form>
+
+    @if($this->result)
+
+
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2">Результат расчёта</h3>
+
+            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-auto text-sm leading-relaxed">
+@php
+    $lines = explode("\n", json_encode($this->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+@endphp
+                @foreach ($lines as $i => $line)
+                    <span class="text-gray-500 select-none">{{ str_pad($i + 1, 3, ' ', STR_PAD_LEFT) }} |</span> {{ $line }}
+                @endforeach
+        </pre>
+        </div>
+    @endif
 
     <x-filament-actions::modals/>
 
