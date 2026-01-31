@@ -50,16 +50,19 @@ class TestCalculator extends Page implements HasSchemas
                 Section::make()->schema([
                     DatePicker::make('date')
                         ->label('Дата рождения')
+                        ->required()
                         ->displayFormat('m.d.Y')
                         ->placeholder('мм.дд.гггг')
                         ->locale('us')
                         ->native(false)
                         ->format('Y-m-d'),
                     TimePicker::make('time')
+                        ->required()
                         ->label('Время рождения')
                         ->seconds(false)
                         ->format('H:i'),
                     Select::make('city_id')
+                        ->required()
                         ->label('Город')
                         ->searchable()
                         ->getSearchResultsUsing(function (string $search) {
